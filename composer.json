@@ -1,0 +1,24 @@
+{
+    "name": "earc/tree",
+    "description": "eArc - the explicit architecture framework - tree composite component",
+    "type": "library",
+    "license": "MIT",
+    "version": "0.0-ALPHA",
+    "authors": [
+        {
+            "name": "Thomas Koudela",
+            "email": "thomas@koudela.net"
+        }
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "autoload": {
+        "psr-4" : {
+            "eArc\\Tree\\" : "src"
+        }
+    },
+    "require-dev": {
+        "behat/behat": "^3.5"
+    }
+}
