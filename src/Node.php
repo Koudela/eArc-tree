@@ -10,7 +10,10 @@
 
 namespace eArc\Tree;
 
+use eArc\Tree\Exceptions\DoesNotBelongToParentException;
 use eArc\Tree\Exceptions\NodeOverwriteException;
+use eArc\Tree\Exceptions\NotFoundException;
+use eArc\Tree\Exceptions\NotPartOfTreeException;
 
 /**
  * Node defines the tree structure of the composite
@@ -55,11 +58,11 @@ class Node
     public function addChild(Node $node): void
     {
         if ($node->getRoot() !== $this->getRoot()) {
-            throw new \RuntimeException("The instance does not belong to this tree.");
+            throw new NotPartOfTreeException("The instance does not belong to this tree.");
         }
 
         if ($this !== $node->parent) {
-            throw new \RuntimeException("The instance does not belong to this parent.");
+            throw new DoesNotBelongToParentException("The instance does not belong to this parent.");
         }
 
         if (isset($this->children[$node->getName()])) {
@@ -105,9 +108,15 @@ class Node
      * @param string $name
      *
      * @return Node
+     *
+     * @throws NotFoundException
      */
     public function getChild(string $name): Node
     {
+        if (!isset($this->children[$name])) {
+            throw new NotFoundException($name);
+        }
+
         return $this->children[$name];
     }
 
@@ -124,21 +133,19 @@ class Node
     }
 
     /**
-     * Get the child at the end of the path or null if it does not exists
+     * Get the child at the end of the path.
      *
      * @param array $path
      *
-     * @return Node|null
+     * @return Node
+     *
+     * @throws NotFoundException
      */
-    public function getPathChild(array $path): ?Node
+    public function getPathChild(array $path): Node
     {
         $child = $this;
 
         foreach ($path as $name) {
-            if (!$child->hasChild($name))
-            {
-                return null;
-            }
             $child = $child->getChild($name);
         }
 

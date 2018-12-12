@@ -3,7 +3,7 @@
     "description": "eArc - the explicit architecture framework - tree composite component",
     "type": "library",
     "license": "MIT",
-    "version": "0.0-ALPHA",
+    "version": "0.0-Beta",
     "authors": [
         {
             "name": "Thomas Koudela",
