@@ -13,143 +13,28 @@ namespace eArc\Tree;
 
 use eArc\Tree\Exceptions\DoesNotBelongToParentException;
 use eArc\Tree\Exceptions\NodeOverwriteException;
-use eArc\Tree\Exceptions\NotFoundException;
 use eArc\Tree\Exceptions\NotPartOfTreeException;
 use eArc\Tree\Interfaces\NodeInterface;
+use eArc\Tree\Traits\NodeTrait;
 
 /**
- * Node defines the tree structure of the composite
+ * Node implements the node interface to define a tree structured composite.
  */
 class Node implements NodeInterface
 {
-    /** @var Node */
-    protected $root;
-
-    /** @var Node */
-    protected $parent;
-
-    /** @var array */
-    protected $children = [];
-
-    /** @var string */
-    protected $name;
+    use NodeTrait;
 
     /**
-     * @param NodeInterface|null   $parent
-     * @param string|null $name
+     * @param NodeInterface|null $node
+     * @param string|null        $name
      *
      * @throws DoesNotBelongToParentException
      * @throws NodeOverwriteException
      * @throws NotPartOfTreeException
      */
-    public function __construct(?NodeInterface $parent = null, ?string $name = null)
+    public function __construct(?NodeInterface $node = null, ?string $name = null)
     {
-        $this->name = $name ?? spl_object_hash($this);
-
-        if (!$parent) {
-            $this->root = $this;
-            $this->parent = $this;
-        } else {
-            $this->root = $parent->getRoot();
-            $this->parent = $parent;
-            $parent->addChild($this);
-        }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function addChild(NodeInterface $node): void
-    {
-        if ($node->getRoot() !== $this->getRoot()) {
-            throw new NotPartOfTreeException("The instance does not belong to this tree.");
-        }
-
-        if ($this !== $node->getParent()) {
-            throw new DoesNotBelongToParentException("The instance does not belong to this parent.");
-        }
-
-        if (isset($this->children[$node->getName()])) {
-            throw new NodeOverwriteException("A child with the name '{$node->getName()}' already exists.'");
-        }
-
-        $this->children[$node->getName()] = $node;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return static
-     */
-    public function getParent(): NodeInterface
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return static[]
-     */
-    public function getChildren(): array
-    {
-        return $this->children;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return static
-     */
-    public function getChild(string $name): NodeInterface
-    {
-        if (!isset($this->children[$name])) {
-            throw new NotFoundException($name);
-        }
-
-        return $this->children[$name];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function hasChild(string $name): bool
-    {
-        return isset($this->children[$name]);
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return static
-     */
-    public function getPathChild(array $path): NodeInterface
-    {
-        $child = $this;
-
-        foreach ($path as $name) {
-            $child = $child->getChild($name);
-        }
-
-        return $child;
-    }
-
-    /**
-     * @inheritdoc
-     *
-     * @return static
-     */
-    public function getRoot(): NodeInterface
-    {
-        return $this->root;
+        $this->initNodeTrait($node, $name);
     }
 
     /**
@@ -159,7 +44,7 @@ class Node implements NodeInterface
      */
     public function __toString(): string
     {
-        return $this->root->nodeToString();
+        return $this->getRoot()->nodeToString();
     }
 
     /**
@@ -171,9 +56,9 @@ class Node implements NodeInterface
      */
     protected function nodeToString($indent = ''): string
     {
-        $str = $indent . "--{$this->name}--\n";
+        $str = $indent . "--{$this->getName()}--\n";
 
-        foreach ($this->children as $child)
+        foreach ($this->getChildren() as $child)
         {
             $str .= $child->nodeToString($indent . '  ');
         }
