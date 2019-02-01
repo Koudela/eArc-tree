@@ -20,7 +20,4 @@
             "eArc\\Tree\\" : "src"
         }
     },
-    "require-dev": {
-        "behat/behat": "^3.5"
-    }
 }

@@ -11,6 +11,9 @@
 
 namespace eArc\Tree\Exceptions;
 
-class NotPartOfTreeException extends \RuntimeException
+/**
+ * Node does not belong to the same composite.
+ */
+class NotPartOfTreeException extends NodeException
 {
 }

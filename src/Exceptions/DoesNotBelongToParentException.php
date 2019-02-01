@@ -11,6 +11,9 @@
 
 namespace eArc\Tree\Exceptions;
 
-class DoesNotBelongToParentException extends \RuntimeException
+/**
+ * A node is added to a parent it does not belong to.
+ */
+class DoesNotBelongToParentException extends NodeException
 {
 }

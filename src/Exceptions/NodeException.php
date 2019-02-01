@@ -11,9 +11,11 @@
 
 namespace eArc\Tree\Exceptions;
 
+use Exception;
+
 /**
- * No child was found for the identifier.
+ * Generic node exception
  */
-class NotFoundException extends NodeException
+class NodeException extends Exception
 {
 }

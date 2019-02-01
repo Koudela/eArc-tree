@@ -36,6 +36,10 @@ class Node
     /**
      * @param Node|null   $parent
      * @param string|null $name
+     *
+     * @throws DoesNotBelongToParentException
+     * @throws NodeOverwriteException
+     * @throws NotPartOfTreeException
      */
     public function __construct(?Node $parent = null, ?string $name = null)
     {
@@ -55,6 +59,10 @@ class Node
      * Add an instance to the composite as child of this node.
      *
      * @param Node $node
+     *
+     * @throws DoesNotBelongToParentException
+     * @throws NodeOverwriteException
+     * @throws NotPartOfTreeException
      */
     public function addChild(Node $node): void
     {

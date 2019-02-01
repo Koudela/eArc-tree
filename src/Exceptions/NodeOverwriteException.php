@@ -12,9 +12,8 @@
 namespace eArc\Tree\Exceptions;
 
 /**
- * Gets thrown if a node is added to a parent where the same child node name
- * already exists.
+ * Node is added to a parent where the same child node name already exists.
  */
-class NodeOverwriteException extends \RuntimeException
+class NodeOverwriteException extends NodeException
 {
 }
