@@ -33,8 +33,8 @@ class Node
     protected $name;
 
     /**
-     * @param Node|null $parent
-     * @param null|string $name
+     * @param Node|null   $parent
+     * @param string|null $name
      */
     public function __construct(?Node $parent = null, ?string $name = null)
     {
@@ -85,7 +85,7 @@ class Node
     /**
      * Get the parent of the node or the node itself if it's a root node.
      *
-     * @return Node
+     * @return static
      */
     public function getParent(): Node
     {
@@ -95,7 +95,7 @@ class Node
     /**
      * Get the children of the node.
      *
-     * @return array
+     * @return static[]
      */
     public function getChildren(): array
     {
@@ -107,7 +107,7 @@ class Node
      *
      * @param string $name
      *
-     * @return Node
+     * @return static
      *
      * @throws NotFoundException
      */
@@ -137,7 +137,7 @@ class Node
      *
      * @param array $path
      *
-     * @return Node
+     * @return static
      *
      * @throws NotFoundException
      */
@@ -155,7 +155,7 @@ class Node
     /**
      * Get the root of the node.
      *
-     * @return Node
+     * @return static
      */
     public function getRoot(): Node
     {
