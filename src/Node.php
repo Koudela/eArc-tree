@@ -15,11 +15,12 @@ use eArc\Tree\Exceptions\DoesNotBelongToParentException;
 use eArc\Tree\Exceptions\NodeOverwriteException;
 use eArc\Tree\Exceptions\NotFoundException;
 use eArc\Tree\Exceptions\NotPartOfTreeException;
+use eArc\Tree\Interfaces\NodeInterface;
 
 /**
  * Node defines the tree structure of the composite
  */
-class Node
+class Node implements NodeInterface
 {
     /** @var Node */
     protected $root;
@@ -34,14 +35,14 @@ class Node
     protected $name;
 
     /**
-     * @param Node|null   $parent
+     * @param NodeInterface|null   $parent
      * @param string|null $name
      *
      * @throws DoesNotBelongToParentException
      * @throws NodeOverwriteException
      * @throws NotPartOfTreeException
      */
-    public function __construct(?Node $parent = null, ?string $name = null)
+    public function __construct(?NodeInterface $parent = null, ?string $name = null)
     {
         $this->name = $name ?? spl_object_hash($this);
 
@@ -56,21 +57,15 @@ class Node
     }
 
     /**
-     * Add an instance to the composite as child of this node.
-     *
-     * @param Node $node
-     *
-     * @throws DoesNotBelongToParentException
-     * @throws NodeOverwriteException
-     * @throws NotPartOfTreeException
+     * @inheritdoc
      */
-    public function addChild(Node $node): void
+    public function addChild(NodeInterface $node): void
     {
         if ($node->getRoot() !== $this->getRoot()) {
             throw new NotPartOfTreeException("The instance does not belong to this tree.");
         }
 
-        if ($this !== $node->parent) {
+        if ($this !== $node->getParent()) {
             throw new DoesNotBelongToParentException("The instance does not belong to this parent.");
         }
 
@@ -82,9 +77,7 @@ class Node
     }
 
     /**
-     * Get the name of the node.
-     *
-     * @return string
+     * @inheritdoc
      */
     public function getName(): string
     {
@@ -92,19 +85,15 @@ class Node
     }
 
     /**
-     * Get the parent of the node or the node itself if it's a root node.
-     *
-     * @return static
+     * @inheritdoc
      */
-    public function getParent(): Node
+    public function getParent(): NodeInterface
     {
         return $this->parent;
     }
 
     /**
-     * Get the children of the node.
-     *
-     * @return static[]
+     * @inheritdoc
      */
     public function getChildren(): array
     {
@@ -112,15 +101,9 @@ class Node
     }
 
     /**
-     * Get a child by its name.
-     *
-     * @param string $name
-     *
-     * @return static
-     *
-     * @throws NotFoundException
+     * @inheritdoc
      */
-    public function getChild(string $name): Node
+    public function getChild(string $name): NodeInterface
     {
         if (!isset($this->children[$name])) {
             throw new NotFoundException($name);
@@ -130,11 +113,7 @@ class Node
     }
 
     /**
-     * Checks whether a child named alike exists
-     *
-     * @param string $name
-     *
-     * @return bool
+     * @inheritdoc
      */
     public function hasChild(string $name): bool
     {
@@ -142,15 +121,9 @@ class Node
     }
 
     /**
-     * Get the child at the end of the path.
-     *
-     * @param array $path
-     *
-     * @return static
-     *
-     * @throws NotFoundException
+     * @inheritdoc
      */
-    public function getPathChild(array $path): Node
+    public function getPathChild(array $path): NodeInterface
     {
         $child = $this;
 
@@ -166,7 +139,7 @@ class Node
      *
      * @return static
      */
-    public function getRoot(): Node
+    public function getRoot(): NodeInterface
     {
         return $this->root;
     }

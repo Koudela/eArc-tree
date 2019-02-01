@@ -11,6 +11,8 @@
 
 namespace eArc\Tree;
 
+use eArc\Tree\Interfaces\NodeInterface;
+
 /**
 * Defines a tree structured composite that has a content payload.
 */
@@ -19,7 +21,7 @@ class ContentNode extends Node
     /** @var mixed */
     protected $content;
 
-    public function __construct(?Node $parent = null, ?string $name = null, $content = null)
+    public function __construct(?NodeInterface $parent = null, ?string $name = null, $content = null)
     {
         parent::__construct($parent, $name);
 
