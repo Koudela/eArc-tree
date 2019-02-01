@@ -13,11 +13,12 @@
     "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "earc/payload": "^0.0.1"
     },
     "autoload": {
         "psr-4" : {
             "eArc\\Tree\\" : "src"
         }
-    },
+    }
 }
