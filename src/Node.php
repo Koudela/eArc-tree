@@ -54,7 +54,7 @@ class Node implements NodeInterface
      *
      * @return string
      */
-    protected function nodeToString($indent = ''): string
+    protected function nodeToString(string $indent = ''): string
     {
         $str = $indent . "--{$this->getName()}--\n";
 
