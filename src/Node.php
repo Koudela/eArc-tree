@@ -86,6 +86,8 @@ class Node implements NodeInterface
 
     /**
      * @inheritdoc
+     *
+     * @return static
      */
     public function getParent(): NodeInterface
     {
@@ -94,6 +96,8 @@ class Node implements NodeInterface
 
     /**
      * @inheritdoc
+     *
+     * @return static[]
      */
     public function getChildren(): array
     {
@@ -102,6 +106,8 @@ class Node implements NodeInterface
 
     /**
      * @inheritdoc
+     *
+     * @return static
      */
     public function getChild(string $name): NodeInterface
     {
@@ -122,6 +128,8 @@ class Node implements NodeInterface
 
     /**
      * @inheritdoc
+     *
+     * @return static
      */
     public function getPathChild(array $path): NodeInterface
     {
@@ -135,7 +143,7 @@ class Node implements NodeInterface
     }
 
     /**
-     * Get the root of the node.
+     * @inheritdoc
      *
      * @return static
      */
