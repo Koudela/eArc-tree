@@ -1,6 +1,6 @@
 # earc/tree
 
-Basic tree composite object and interface.
+Basic tree composite blueprint.
 
 # installation
 

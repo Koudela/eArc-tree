@@ -1,7 +1,7 @@
 <?php
 /**
  * e-Arc Framework - the explicit Architecture Framework
- * tree composite component
+ * tree composite blueprint
  *
  * @package earc/tree
  * @link https://github.com/Koudela/eArc-tree/

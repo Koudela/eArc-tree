@@ -1,6 +1,6 @@
 {
     "name": "earc/tree",
-    "description": "eArc - the explicit architecture framework - tree composite component",
+    "description": "eArc - the explicit architecture framework - tree composite blueprint",
     "type": "library",
     "license": "MIT",
     "version": "0.0-Beta",
