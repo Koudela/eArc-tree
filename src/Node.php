@@ -11,9 +11,7 @@
 
 namespace eArc\Tree;
 
-use eArc\Tree\Exceptions\DoesNotBelongToParentException;
 use eArc\Tree\Exceptions\NodeOverwriteException;
-use eArc\Tree\Exceptions\NotPartOfTreeException;
 use eArc\Tree\Interfaces\NodeInterface;
 use eArc\Tree\Traits\NodeTrait;
 
@@ -28,22 +26,11 @@ class Node implements NodeInterface
      * @param NodeInterface|null $node
      * @param string|null        $name
      *
-     * @throws DoesNotBelongToParentException
      * @throws NodeOverwriteException
-     * @throws NotPartOfTreeException
      */
     public function __construct(?NodeInterface $node = null, ?string $name = null)
     {
         $this->initNodeTrait($node, $name);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function createChild(?string $name = null): NodeInterface
-    {
-        /** @noinspection PhpUnhandledExceptionInspection */
-        return new static($this, $name);
     }
 
     /**

@@ -40,9 +40,7 @@ trait NodeTrait
      * @param NodeInterface|null $parent
      * @param string|null        $name
      *
-     * @throws DoesNotBelongToParentException
      * @throws NodeOverwriteException
-     * @throws NotPartOfTreeException
      */
     protected function initNodeTrait(?NodeInterface $parent = null, ?string $name = null)
     {
@@ -65,17 +63,14 @@ trait NodeTrait
     public function addChild(NodeInterface $node): void
     {
         if ($node->getRoot() !== $this->getRoot()) {
-            /** @noinspection PhpUnhandledExceptionInspection */
             throw new NotPartOfTreeException("The instance does not belong to this tree.");
         }
 
         if ($this !== $node->getParent()) {
-            /** @noinspection PhpUnhandledExceptionInspection */
             throw new DoesNotBelongToParentException("The instance does not belong to this parent.");
         }
 
         if (isset($this->nodeChildren[$node->getName()])) {
-            /** @noinspection PhpUnhandledExceptionInspection */
             throw new NodeOverwriteException("A child with the name '{$node->getName()}' already exists.'");
         }
 
@@ -111,8 +106,6 @@ trait NodeTrait
     }
 
     /**
-     * @noinspection PhpDocMissingThrowsInspection
-     *
      * @inheritdoc
      *
      * @return static
@@ -120,7 +113,6 @@ trait NodeTrait
     public function getChild(string $name): NodeInterface
     {
         if (!isset($this->nodeChildren[$name])) {
-            /** @noinspection PhpUnhandledExceptionInspection */
             throw new NotFoundException($name);
         }
 
@@ -136,8 +128,6 @@ trait NodeTrait
     }
 
     /**
-     * @noinspection PhpDocMissingThrowsInspection
-     *
      * @inheritdoc
      *
      * @return static
@@ -147,7 +137,6 @@ trait NodeTrait
         $child = $this;
 
         foreach ($path as $name) {
-            /** @noinspection PhpUnhandledExceptionInspection */
             $child = $child->getChild($name);
         }
 
