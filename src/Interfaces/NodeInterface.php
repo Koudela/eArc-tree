@@ -33,6 +33,17 @@ interface NodeInterface
     public function addChild(NodeInterface $node): void;
 
     /**
+     * Create and get a new child.
+     *
+     * @param string|null $name
+     *
+     * @return static
+     *
+     * @throws NodeOverwriteException
+     */
+    public function createChild(?string $name = null): NodeInterface;
+
+    /**
      * Get the name of the node.
      *
      * @return string

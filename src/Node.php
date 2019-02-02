@@ -38,6 +38,15 @@ class Node implements NodeInterface
     }
 
     /**
+     * @inheritdoc
+     */
+    public function createChild(?string $name = null): NodeInterface
+    {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return new static($this, $name);
+    }
+
+    /**
      * Transforms the composite into a string representation.
      *
      * @return string
